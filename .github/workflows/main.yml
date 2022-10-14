@@ -25,7 +25,6 @@ jobs:
           username: ${{ secrets.QUAY_USERNAME }}
           password: ${{ secrets.QUAY_PASSWORD }}
 
-
       - name: Build Container
         id: build-image
         uses: redhat-actions/buildah-build@v2
