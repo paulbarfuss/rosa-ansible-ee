@@ -11,5 +11,6 @@ dependencies:
 
 additional_build_steps:
   append:
+    - RUN echo "Installing CLI tools"
     - RUN curl --fail -sL https://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz | tar --no-same-owner -C /usr/local/bin/ -xzf -
     - RUN curl --fail -sL https://mirror.openshift.com/pub/openshift-v4/clients/rosa/latest/rosa-linux.tar.gz | tar --no-same-owner -C /usr/local/bin/ -xzf -
