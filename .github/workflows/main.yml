@@ -1,6 +1,6 @@
 ---
 
-name: Ansible Builder Test
+name: Build Image and Push to Quay
 
 on:
   push:
