@@ -27,6 +27,5 @@ COPY --from=galaxy /usr/share/ansible /usr/share/ansible
 
 COPY --from=builder /output/ /output/
 RUN /output/install-from-bindep && rm -rf /output/wheels
-RUN microdnf install --nodocs tar gzip
 RUN curl --fail -sL https://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz | tar --no-same-owner -C /usr/local/bin/ -xzf -
 RUN curl --fail -sL https://mirror.openshift.com/pub/openshift-v4/clients/rosa/latest/rosa-linux.tar.gz | tar --no-same-owner -C /usr/local/bin/ -xzf -
