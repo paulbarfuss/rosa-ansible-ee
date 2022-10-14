@@ -1,0 +1,46 @@
+---
+
+name: Build Image and Push to Quay
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - execution-environment/**/*
+
+jobs:
+  build:
+    name: Build and push image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Login to Red Hat container registry
+        uses: redhat-actions/podman-login@v1
+        with:
+          registry: registry.redhat.io
+          username: ${{ secrets.QUAY_USERNAME }}
+          password: ${{ secrets.QUAY_PASSWORD }}
+
+      - name: Build Container
+        id: build-image
+        uses: redhat-actions/buildah-build@v2
+        with:
+          image: rosa-ansible-ee
+          tags: latest ${{ github.sha }}
+          context: execution-environment/context
+          containerfiles: |
+            execution-environment/context/Containerfile
+
+      - name: Push To quay.io
+        id: push-to-quay
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ${{ steps.build-image.outputs.image }}
+          tags: ${{ steps.build-image.outputs.tags }}
+          registry: quay.io/pbarfuss
+          username: ${{ secrets.QUAY_USERNAME }}
+          password: ${{ secrets.QUAY_PASSWORD }}
