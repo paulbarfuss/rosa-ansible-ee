@@ -22,8 +22,8 @@ jobs:
         uses: redhat-actions/podman-login@v1
         with:
           registry: registry.redhat.io
-          username: ${{ secrets.QUAY_USERNAME }}
-          password: ${{ secrets.QUAY_PASSWORD }}
+          username: ${{ secrets.RH_USERNAME }}
+          password: ${{ secrets.RH_PASSWORD }}
 
       - name: Build Container
         id: build-image
